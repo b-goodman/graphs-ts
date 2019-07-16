@@ -3,7 +3,7 @@ import { Vertex } from "./Vertex";
 export declare class Graph extends Map<string, EdgeList> {
     private defaultOpts;
     private readonly opts;
-    private vertices;
+    vertices: Map<string, Vertex<{}>>;
     constructor(opts?: {
         directed?: boolean;
     });

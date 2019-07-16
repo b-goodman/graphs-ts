@@ -1,0 +1,7 @@
+node_modules
+__tests__
+docs
+src
+jest.config.js
+tsconfig.json
+tslint.json

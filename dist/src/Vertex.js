@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class Vertex {
+export class Vertex {
     constructor(tag, data) {
         this.id = Vertex._id++;
         this.tag = tag;
@@ -9,4 +7,3 @@ class Vertex {
     }
 }
 Vertex._id = 0;
-exports.Vertex = Vertex;

@@ -1,12 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "target": "es2015",
+    "module": "es2015",
     "declaration": true,
     "strict": true,
     "esModuleInterop": true,
     "outDir": "./dist",
     "downlevelIteration": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node"
+  },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs",
+    "theme": "markdown",
+    "entryPoint": "./src",
+    "exclude": "__*/*",
+    "includeDeclarations": true,
+    "excludeExternals": true
   }
 }

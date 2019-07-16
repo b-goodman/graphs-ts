@@ -1,8 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const EdgeList_1 = require("./EdgeList");
-const Vertex_1 = require("./Vertex");
-class Graph extends Map {
+import { EdgeList } from "./EdgeList";
+import { Vertex } from "./Vertex";
+export class Graph extends Map {
     constructor(opts = {}) {
         super();
         this.defaultOpts = { directed: true };
@@ -10,8 +8,8 @@ class Graph extends Map {
         this.opts = Object.assign(this.defaultOpts, opts);
     }
     addVertex(tag, data) {
-        const newVertex = new Vertex_1.Vertex(tag, data);
-        this.set(newVertex.tag, new EdgeList_1.EdgeList());
+        const newVertex = new Vertex(tag, data);
+        this.set(newVertex.tag, new EdgeList());
         this.vertices.set(newVertex.tag, newVertex);
         return newVertex;
     }
@@ -24,4 +22,3 @@ class Graph extends Map {
         }
     }
 }
-exports.Graph = Graph;

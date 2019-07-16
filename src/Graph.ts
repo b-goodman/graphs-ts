@@ -5,7 +5,7 @@ export class Graph extends Map< string, EdgeList > {
 
 	private defaultOpts = {directed: true};
 	private readonly opts: {directed: boolean};
-	private vertices = new Map<string, Vertex>();
+	public vertices = new Map<string, Vertex>();
 
 	constructor (opts: {directed?: boolean } = {} ) {
 		super();

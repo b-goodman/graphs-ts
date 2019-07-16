@@ -1,54 +1,46 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const Graph_1 = require("./Graph");
-class Tree extends Graph_1.Graph {
+import { Graph } from "./Graph";
+export class FileTree extends Graph {
     constructor(tree) {
         super();
         this.matchContext = new RegExp(/^([│├└─]+\s+)+/);
         const treeRows = tree.split("\n");
-        const fileDepths = treeRows.slice(1, -1).map((row) => {
+        const fileDepths = treeRows.slice(1).map((row) => {
             return (this.matchContext.exec(row))[0].length / 4;
         });
-        const filenames = treeRows.slice(1, -1).map((row) => {
+        const filenames = treeRows.slice(1).map((row) => {
             return row.replace(this.matchContext, "");
         });
         let combined = new Array();
-        const len = filenames.length - 1;
+        const len = filenames.length;
         for (let i = 0; i <= len; i++) {
             combined = [...combined, [filenames[i], fileDepths[i]]];
         }
         const currentDir = ["."];
         let currentLevel = 1;
-        this.addVertex(".", { path: ".", type: "Directory" });
+        this.addVertex(".", { type: "Directory" });
         for (let i = 0; i <= len; i++) {
+            const filename = combined[i][0];
+            // console.log(filename);
             if (combined[i][1] === currentLevel) {
                 // add to current dir
-                const filename = combined[i][0];
-                // combined[i] = [ filename, currentDir[currentDir.length-1] ];
-                // this.files[ currentDir[currentDir.length - 1] ]
-                const newFile = this.addVertex(`${currentDir.join("/")}/${filename}`, { type: "File" });
+                const type = (i < len && combined[i][1] < combined[i + 1][1]) ? "Directory" : "File";
+                const newFile = this.addVertex(`${currentDir.join("/")}/${filename}`, { type });
                 this.addEdge(currentDir.join("/"), newFile.tag);
             }
             else if (combined[i][1] > currentLevel) {
                 // create and move up to new dir
-                const filename = combined[i][0];
                 currentDir.push(combined[i - 1][0]);
                 currentLevel = combined[i][1];
-                // combined[i] = [ filename, currentDir[currentDir.length-1] ];
-                // this.addToObj( currentDir, filename);
-                const newFile = this.addVertex(`${currentDir.join("/")}/${filename}`, { type: "Directory" });
+                const newFile = this.addVertex(`${currentDir.join("/")}/${filename}`, { type: "File" });
                 this.addEdge(currentDir.join("/"), newFile.tag);
             }
             else if (combined[i][1] < currentLevel) {
-                // move back down one dir
-                const filename = combined[i][0];
+                // moved back down one dir
                 currentLevel = combined[i][1];
                 currentDir.pop();
-                // combined[i] = [ filename, currentDir[currentDir.length-1] ];
                 const newFile = this.addVertex(`${currentDir.join("/")}/${filename}`, { type: "File" });
                 this.addEdge(currentDir.join("/"), newFile.tag);
             }
         }
     }
 }
-exports.Tree = Tree;
