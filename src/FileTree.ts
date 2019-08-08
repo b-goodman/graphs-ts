@@ -7,7 +7,13 @@ export class FileTree extends Graph {
 	constructor (tree: string) {
 		super();
 
-		const treeRows = tree.split("\n");
+		const treeRows = tree.split("\n").filter( (row) => {
+			return row.length > 0;
+		});
+
+		if (treeRows.length === 0) {
+			throw new Error("");
+		}
 
 		const fileDepths = treeRows.slice(1).map( (row: string) => {
 			return ( this.matchContext.exec(row))![0].length / 4;

@@ -2,7 +2,9 @@ import { EdgeList } from "./EdgeList";
 import { Vertex } from "./Vertex";
 export declare class Graph extends Map<string, EdgeList> {
     private defaultOpts;
-    private readonly opts;
+    readonly opts: {
+        directed: boolean;
+    };
     vertices: Map<string, Vertex<{}>>;
     constructor(opts?: {
         directed?: boolean;

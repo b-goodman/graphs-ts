@@ -1,5 +1,6 @@
 import { FileTree } from "../src/FileTree";
-const treeInput = `.
+const treeInput = `
+.
 ├── README.md
 ├── index.html
 ├── __tests__
@@ -16,7 +17,8 @@ const treeInput = `.
 │   └── typings.d.ts
 ├── tsconfig.json
 ├── webpack.dvl.conf.js
-└── webpack.prd.conf.js`;
+└── webpack.prd.conf.js
+`;
 const tree = new FileTree(treeInput);
 it("Recognizes directories", () => {
     expect(tree.vertices.get(".").data).toEqual({ type: "Directory" });

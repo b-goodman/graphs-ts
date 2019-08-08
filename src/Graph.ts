@@ -4,7 +4,7 @@ import {Vertex} from "./Vertex";
 export class Graph extends Map< string, EdgeList > {
 
 	private defaultOpts = {directed: true};
-	private readonly opts: {directed: boolean};
+	public readonly opts: {directed: boolean};
 	public vertices = new Map<string, Vertex>();
 
 	constructor (opts: {directed?: boolean } = {} ) {
